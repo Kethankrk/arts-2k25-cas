@@ -29,6 +29,9 @@ export default function ScoreBorad({ data }: Props) {
   return (
     <div className="flex flex-1 flex-col">
       <div className="container mx-auto py-10 px-4">
+        <div className="w-[200px] mx-auto">
+          <img src="/logo.png" alt="" />
+        </div>
         <h1 className="text-4xl font-bold mb-2 text-center">
           Arts Fest Scores
         </h1>

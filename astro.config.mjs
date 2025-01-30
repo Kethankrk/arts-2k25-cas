@@ -9,10 +9,11 @@ import vercel from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
+  output: "server",
   integrations: [react(), tailwind({ applyBaseStyles: false })],
   adapter: vercel({
     isr: {
-      expiration: 120,
+      expiration: 30,
     },
   }),
 });

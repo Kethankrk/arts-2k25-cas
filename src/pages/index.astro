@@ -1,6 +1,7 @@
 ---
 import ScoreBorad from "@/components";
 import Layout from "../layouts/Layout.astro";
+import { ModeToggle } from "@/components/ModeToggle";
 
 export interface ScoreData {
   teamname: string;
@@ -21,12 +22,19 @@ try {
 
 <Layout>
   <div class="min-h-screen flex flex-col">
+    <div class="flex h-[50px] border border-b items-center justify-center">
+      <div class="container flex justify-end px-4">
+        <ModeToggle client:load />
+      </div>
+    </div>
     <ScoreBorad data={data} />
     <div class="border border-t py-5">
       <p class="text-center text-muted-foreground">
-        Developed by <span
+        Developed by <a
+          href="https://kethankrk.vercel.app/"
+          target="_blank"
           class="text-blue-500 underline cursor-pointer font-medium"
-          >Kethan Krishna PK</span
+          >Kethan Krishna PK</a
         >
       </p>
     </div>
