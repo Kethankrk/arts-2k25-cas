@@ -13,7 +13,7 @@ export default defineConfig({
   integrations: [react(), tailwind({ applyBaseStyles: false })],
   adapter: vercel({
     isr: {
-      expiration: 30,
+      expiration: 120,
     },
   }),
 });
