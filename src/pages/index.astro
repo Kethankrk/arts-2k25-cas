@@ -7,13 +7,16 @@ export interface ScoreData {
   score: number;
 }
 let data: ScoreData[] = [];
-// try {
-//   const response = await fetch(
-//     "https://script.google.com/macros/s/AKfycbzd-yz30Rx37wCbbq9IyGgzBghdO09yCkyLPp6CIF23NwpSfoqMUdX14dgJ-lOwcsle/exec"
-//   );
+try {
+  const response = await fetch(
+    "https://script.google.com/macros/s/AKfycbzd-yz30Rx37wCbbq9IyGgzBghdO09yCkyLPp6CIF23NwpSfoqMUdX14dgJ-lOwcsle/exec"
+  );
 
-//   data = (await response.json()) as ScoreData[];
-// } catch (error) {}
+  data = (await response.json()) as ScoreData[];
+} catch (error) {
+  console.log("fetch failed");
+  console.log(error);
+}
 ---
 
 <Layout>
