@@ -6,16 +6,26 @@ export interface ScoreData {
   teamname: string;
   score: number;
 }
-let data: ScoreData[] | null = null;
-try {
-  const response = await fetch(
-    "https://script.google.com/macros/s/AKfycbzd-yz30Rx37wCbbq9IyGgzBghdO09yCkyLPp6CIF23NwpSfoqMUdX14dgJ-lOwcsle/exec"
-  );
+let data: ScoreData[] = [];
+// try {
+//   const response = await fetch(
+//     "https://script.google.com/macros/s/AKfycbzd-yz30Rx37wCbbq9IyGgzBghdO09yCkyLPp6CIF23NwpSfoqMUdX14dgJ-lOwcsle/exec"
+//   );
 
-  data = (await response.json()) as ScoreData[];
-} catch (error) {}
+//   data = (await response.json()) as ScoreData[];
+// } catch (error) {}
 ---
 
 <Layout>
-  <ScoreBorad data={data} />
+  <div class="min-h-screen flex flex-col">
+    <ScoreBorad data={data} />
+    <div class="border border-t py-5">
+      <p class="text-center text-muted-foreground">
+        Developed by <span
+          class="text-blue-500 underline cursor-pointer font-medium"
+          >Kethan Krishna PK</span
+        >
+      </p>
+    </div>
+  </div>
 </Layout>
