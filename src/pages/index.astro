@@ -1,0 +1,21 @@
+---
+import ScoreBorad from "@/components";
+import Layout from "../layouts/Layout.astro";
+
+export interface ScoreData {
+  teamname: string;
+  score: number;
+}
+let data: ScoreData[] | null = null;
+try {
+  const response = await fetch(
+    "https://script.google.com/macros/s/AKfycbzd-yz30Rx37wCbbq9IyGgzBghdO09yCkyLPp6CIF23NwpSfoqMUdX14dgJ-lOwcsle/exec"
+  );
+
+  data = (await response.json()) as ScoreData[];
+} catch (error) {}
+---
+
+<Layout>
+  <ScoreBorad data={data} />
+</Layout>
