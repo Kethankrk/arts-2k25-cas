@@ -10,14 +10,36 @@ import { Terminal } from "lucide-react";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
-import type { AppScriptResponse } from "@/pages/index.astro";
+import type { AppScriptResponse, ScoreData } from "@/pages/index.astro";
 import ScoreBoardTable from "./ScoreBoradTable";
+import TotalScoreCard from "./TotalScoreCard";
 
 interface Props {
   data: AppScriptResponse | null;
 }
 
+export interface TotalScoreData {
+  [team: string]: number;
+}
+
 export default function ScoreBorad({ data }: Props) {
+  const totalScoreData: TotalScoreData = {};
+  data?.offstage.forEach((team) => {
+    if (Object.keys(totalScoreData).includes(team.teamname)) {
+      totalScoreData[team.teamname] += team.score;
+    } else {
+      totalScoreData[team.teamname] = team.score;
+    }
+  });
+
+  data?.onstage.forEach((team) => {
+    if (Object.keys(totalScoreData).includes(team.teamname)) {
+      totalScoreData[team.teamname] += team.score;
+    } else {
+      totalScoreData[team.teamname] = team.score;
+    }
+  });
+
   return (
     <div className="flex flex-1 flex-col">
       <div className="container mx-auto py-10 px-4">
@@ -29,6 +51,11 @@ export default function ScoreBorad({ data }: Props) {
         </h1>
         <p className="text-center ">Celebrating creativity and talent</p>
 
+        {data && (
+          <div className="mt-10">
+            <TotalScoreCard data={totalScoreData} />
+          </div>
+        )}
         <Card className="shadow-xl mt-10">
           <CardHeader>
             <CardTitle className="text-2xl text-center  ">
