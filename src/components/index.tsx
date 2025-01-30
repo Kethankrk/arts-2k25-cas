@@ -5,27 +5,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+
+import { Terminal } from "lucide-react";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Badge } from "@/components/ui/badge";
-import { Trophy, Terminal } from "lucide-react";
-import type { ScoreData } from "@/pages/index.astro";
+
+import type { AppScriptResponse } from "@/pages/index.astro";
+import ScoreBoardTable from "./ScoreBoradTable";
 
 interface Props {
-  data: ScoreData[];
+  data: AppScriptResponse | null;
 }
 
 export default function ScoreBorad({ data }: Props) {
-  const sortedTeams = data.sort((a, b) => b.score - a.score);
-
   return (
     <div className="flex flex-1 flex-col">
       <div className="container mx-auto py-10 px-4">
@@ -47,7 +39,7 @@ export default function ScoreBorad({ data }: Props) {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {data.length == 0 && (
+            {!data && (
               <Alert variant="destructive">
                 <Terminal className="h-4 w-4" />
                 <AlertTitle>No data found</AlertTitle>
@@ -56,40 +48,17 @@ export default function ScoreBorad({ data }: Props) {
                 </AlertDescription>
               </Alert>
             )}
-            {data.length > 0 && (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[50px]">Rank</TableHead>
-                    <TableHead>Team Name</TableHead>
-                    <TableHead className="text-right">Score</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {sortedTeams.map((team, index) => (
-                    <TableRow key={team.teamname} className="transition-colors">
-                      <TableCell className="font-medium">
-                        {index === 0 ? (
-                          <Badge variant="default" className="bg-yellow-500">
-                            <Trophy className="w-4 h-4 mr-1" />
-                            1st
-                          </Badge>
-                        ) : (
-                          `${index + 1}${
-                            index === 1 ? "nd" : index === 2 ? "rd" : "th"
-                          }`
-                        )}
-                      </TableCell>
-                      <TableCell className="font-semibold">
-                        {team.teamname}
-                      </TableCell>
-                      <TableCell className="text-right font-bold">
-                        {team.score}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+            {data && (
+              <div className="flex flex-col gap-10">
+                <div>
+                  <p className="font-bold w-full mb-2">Offstage</p>
+                  <ScoreBoardTable data={data.offstage} />
+                </div>
+                <div>
+                  <p className="font-bold w-full mb-2">Onstage</p>
+                  <ScoreBoardTable data={data.onstage} />
+                </div>
+              </div>
             )}
           </CardContent>
         </Card>
